@@ -1,0 +1,27 @@
+{
+  "name": "pjn-expressjs",
+  "version": "1.0.0",
+  "description": "Belajar PJN ExpressJS Framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thoyib07/PJN-ExpressJS.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "ExpressJS",
+    "Belajar",
+    "PJN",
+    "Thoyib",
+    "Hidayat"
+  ],
+  "author": "Thoyib Hidayat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thoyib07/PJN-ExpressJS/issues"
+  },
+  "homepage": "https://github.com/thoyib07/PJN-ExpressJS#readme"
+}
