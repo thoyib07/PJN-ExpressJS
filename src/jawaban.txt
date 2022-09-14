@@ -1,0 +1,104 @@
+- 8, 9, 12, 17, ___,  ___
+24,33
+
+- 6, 7, 8, 6, 7, 8, 9, 6, 7, 8, 9, 10, ___, ___
+6,7
+
+- 9, 9, 9, 6, 9, 3, ___, ___
+9,0
+
+- 2, 5, 3, 6, 4, 7, ___, ___
+5,8
+
+- 1, 2, 4, 2, 2, 4, 3, 2, 4, 4, 2, 4, ___, ___
+5,2
+
+- Harga sebuah buku dan bolpoin adalah 5,000 Rupiah. Harga buku 1,000 Rupiah lebih mahal daripada harga bolpoin, berapakah harga buku dan bolpoin, jabarkan perhitungannya.
+bk=bp+1000;  
+bp=x;
+bk+bp=5000; 
+==========
+bp+1000+bp=5000; 
+2*bp = 5000-1000; 
+bp=4000/2;
+=========== 
+bp=2000
+bk=2000+1000 = 3000
+
+Buku = 3000 & Bolpoin = 2000
+
+- Perbandingan uang jajan Abay dan uang jajan Fajri adalah 3:2. Jika uang Abay dan Fajri berjumlah 150,000 rupiah, berapakah masing – masing uang jajan Abay dan Fajri?
+Abay = 3
+Fajri = 2
+A + F = 5 => 150.000 rupiah
+
+Abay = (3/5)*150.000 = 90.000
+Fajri= (2/5)*150.000 = 60.000
+
+- Tampilkan penayangan film (screening) dengan kategori “Action Movie” yang lama filmnya kurang dari 2 jam dan merupakan film yang dikeluarkan setelah tahun 2000.
+SELECT mv.title, sc.* 
+FROM MsScreening as sc
+JOIN MsMovie as mv on sc.movieNo = mv.movieNo
+JOIN MsCategory as ct on mv.categoryNo = ct.categoryNo
+WHERE ct.description = “Action Movie” AND mv.length < 120 AND mv.publishedYear > 2000
+
+- Tampilkan semua nama film dan sudah berapa kali ditanyangkan.
+SELECT mv.title, COUNT(sc.movieNo) as jumlah_tayang
+FROM MsScreening as sc
+JOIN MsMovie as mv on sc.movieNo = mv.movieNo
+GROUP BY sc.movieNo
+
+- Tampilkan film – film yang lama filmnya lebih lama dari rata – rata.
+SELECT mv.title
+FROM MsMovie as mv
+JOIN
+(SELECT AVG(length) AS Average FROM MsMovie ) AS mv2 ON mv.length > mv2.Average
+
+- Tampilkan semua staff yang pernah bekerja sebagai operator DAN supervisor dalam pemutaran film.
+SELECT st.*
+FROM MsStaff as st
+JOIN MsScreening as sc on sc.supervisorNo = st.staffNo AND sc.operatorNo = st.staffNo
+
+- Tampilkan semua film yang telah ditayangkan lebih dari 3 kali.
+SELECT mv.title, COUNT(sc.movieNo) as jumlah_tayang
+FROM MsScreening as sc
+JOIN MsMovie as mv on sc.movieNo = mv.movieNo
+WHERE jumlah_tayang > 3
+GROUP BY sc.movieNo
+
+- Tampilkan film dengan jumlah penayangan terbanyak di tahun berjalan (sekarang).
+SELECT mv.title, COUNT(sc.movieNo) as jumlah_tayang
+FROM MsScreening as sc
+JOIN MsMovie as mv on sc.movieNo = mv.movieNo
+WHERE YEAR(sc.screeningTime) = YEAR(GETDATE())
+GROUP BY sc.movieNo
+
+- Tampilkan penayangan yang diputar secara bersamaan di cinema yang sama (double booked). Tidak perlu pertimbangkan lama filmnya, cukup validasi cinema dan waktu pemutarannya. Contoh: ada 2 atau lebih penayangan dengan cinema dan waktu pemutaran yang sama.
+SELECT sc.cinemaNo, sc.screeningNo, sc.movieNo, sc2.screeningNo, sc2.movieNo
+FROM MsScreening as sc
+JOIN MsScreening as sc2 ON sc.cinemaNo = sc2.cinemaNo AND sc.screeningTime = sc2.screeningTime AND sc.screeningNo <> sc2.screeningNo
+
+- Tampilkan semua staff yang masih bekerja sampai saat ini.
+SELECT st.*
+FROM MsStaff as st
+JOIN MsScreening as sc on sc.supervisorNo = st.staffNo AND sc.operatorNo = st.staffNo
+WHERE st.resignedDate < GETDATE();
+
+- Tampilkan semua staff yang sudah bekerja selama 2 tahun atau lebih, dengan umur kurang dari 25 tahun, diurutkan sesuai lama bekerjanya.
+SELECT st.*
+FROM MsStaff as st
+WHERE 
+DATEDIFF(GETDATE(),joinedDate)/365 >= 2 AND 
+DATEDIFF(GETDATE(),dateOfBirth)/365 < 25
+ORDER BY joinedDate ASC
+
+- Tampilkan semua film yang belum pernah ditayangkan.
+SELECT *
+FROM MsMovie
+WHERE movieNo NOT IN (SELECT movieNo FROM MsScreening)
+
+- Daftarkan semua staff dengan menampilkan nama, berapa kali mereka pernah menjadi operator di pemutaran film, dan berapa kali mereka pernah menjadi supervisor di pemutaran film.
+SELECT st.*, COUNT(sc.operatorNo) as jumlah_operator, COUNT(sc.supervisorNo) as jumlah_supervisor
+FROM MsStaff as st
+JOIN MsScreening as sc on sc.supervisorNo = st.staffNo OR sc.operatorNo = st.staffNo
+GROUP BY st.staffNo
