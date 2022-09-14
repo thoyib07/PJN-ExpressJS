@@ -4,7 +4,7 @@ import request  from 'supertest';
 const app = express();
 
 app.get('/', (req,res) => {
-    res.send('Hello Thoyib!');
+    res.send('Hello World!');
 });
 
 test("Test Expres", async () => {
