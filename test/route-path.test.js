@@ -23,8 +23,8 @@ test("Test Route Path", async () => {
     respon = await request(app)
         .get('/categories/123.json');
     expect(respon.text).toBe("/categories/123.json");
-    respon = await request(app)
 
+    respon = await request(app)
         .get('/categories/salah.json');
-    expect(respon.text).toBe(404);
+    expect(respon.status).toBe(404);
 });
