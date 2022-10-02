@@ -13,7 +13,7 @@ app.get('/', (req,res) => {
 });
 app.use(errorMiddle);
 
-test("Test Response", async () => {
+test("Test Error Handling", async () => {
     const respon = await request(app)
         .get('/');
     expect(respon.status).toBe(500);

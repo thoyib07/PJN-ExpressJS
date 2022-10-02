@@ -4,7 +4,7 @@ import request  from 'supertest';
 const app = express();
 
 app.get('/', (req,res) => {
-    res.sendFile(__dirname + "/contoh.txt");
+    res.sendFile(__dirname + "/static/contoh.txt");
 });
 
 test("Test Response Send File", async () => {
