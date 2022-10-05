@@ -56,7 +56,7 @@ test("Test Response Middleware 2", async () => {
     const respon = await request(app)
         .get('/thoyib').query({apikey:"123"});
     expect(respon.get("x-powered-by")).toBe("Thoyib Hidayat");
-    expect(respon.text).toBe("Hello Thoyib!");
+    expect(respon.text).toBe("Hello Thoyib");
 });
 
 test("Test Response Middleware Unautorize", async () => {
