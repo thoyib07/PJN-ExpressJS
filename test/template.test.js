@@ -10,7 +10,8 @@ app.engine("html",mustacheExpress());
 app.get('/', (req,res) => {
     res.render('index',{
         title: "Hello World",
-        say: "Ini lagi test"
+        say: "Ini lagi test",
+        list: "Ini LIst Data"
     });
 });
 
@@ -20,4 +21,5 @@ test("Test Template Engine Mustache", async () => {
     console.info(respon.text);
     expect(respon.text).toContain("Hello World");
     expect(respon.text).toContain("Ini lagi test");
+    // expect(respon.text).toContain("Ini lagi test");
 });
